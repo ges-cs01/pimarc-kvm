@@ -1,0 +1,46 @@
+loadkeys br-abnt2; timedatectl set-ntp true
+
+cfdisk {
+##	DOS
+##	New
+##	Size
+##	Primary
+##	Bootable
+
+##	New
+##	Primary
+##	Type: SWAP
+##	Write; yes
+##	Quit
+}
+
+mkfs.ext4 /dev/vda1; mkswap /dev/vda2; 
+mount /dev/vda1 /mnt; swapon /dev/swap_partition; 
+pacstrap /mnt base linux linux-firmware dhcpcd vim grub xorg; 
+genfstab -U /mnt >> /mnt/etc/fstab; 
+arch-chroot /mnt; 
+ln -sf /usr/share/zoneinfo/Brazil/East /etc/localtime; 
+hwclock --systohc
+
+## vim /etc/locale.gen {uncomment #en_US UTF8 #pt_BR UTF8}
+locale-gen
+
+echo "LANG=en_US.UTF-8" >> /etc/locale.conf; 
+echo "KEYMAP=br-abnt2" >> /etc/vconsole.conf; 
+echo "myhostname" >> /etc/hostname; 
+echo -e "127.0.0.1 localhost\n ::1 localhost\n 127.0.1.1 myhostname.localdomain myhostname" >> /etc/hosts;
+
+passwd
+pacman -S sudo
+
+systemctl enable dhcpcd; 
+useradd -m archkvm; passwd archkvm 
+usermod -aG wheel,audio,video,optical,storage archkvm
+
+## visudo {uncomment #%wheel}
+
+grub-install /dev/vda; grub-mkconfig -o /boot/grub/grub.cfg
+
+exit; shutdown now
+
+sudo pacman -S lightdm-gtk-greeter xfce4; sudo systemctl enable lightdm; startxfce4
