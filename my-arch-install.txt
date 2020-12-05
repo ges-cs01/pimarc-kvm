@@ -16,7 +16,7 @@ cfdisk {
 
 mkfs.ext4 /dev/vda1; mkswap /dev/vda2; 
 mount /dev/vda1 /mnt; swapon /dev/swap_partition; 
-pacstrap /mnt base linux linux-firmware dhcpcd vim grub xorg; 
+pacstrap /mnt base linux linux-firmware dhcpcd vim grub xorg lightdm-gtk-greeter xfce4; 
 genfstab -U /mnt >> /mnt/etc/fstab; 
 arch-chroot /mnt; 
 ln -sf /usr/share/zoneinfo/Brazil/East /etc/localtime; 
@@ -28,7 +28,7 @@ locale-gen
 echo "LANG=en_US.UTF-8" >> /etc/locale.conf; 
 echo "KEYMAP=br-abnt2" >> /etc/vconsole.conf; 
 echo "myhostname" >> /etc/hostname; 
-echo -e "127.0.0.1 localhost\n ::1 localhost\n 127.0.1.1 myhostname.localdomain myhostname" >> /etc/hosts;
+echo -e "127.0.0.1 localhost\n::1 localhost\n127.0.1.1 myhostname.localdomain myhostname" >> /etc/hosts;
 
 passwd
 pacman -S sudo
@@ -43,4 +43,4 @@ grub-install /dev/vda; grub-mkconfig -o /boot/grub/grub.cfg
 
 exit; shutdown now
 
-sudo pacman -S lightdm-gtk-greeter xfce4; sudo systemctl enable lightdm; startxfce4
+sudo systemctl enable lightdm; startxfce4
