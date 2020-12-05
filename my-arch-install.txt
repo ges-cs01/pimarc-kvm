@@ -15,7 +15,7 @@ cfdisk {
 }
 
 mkfs.ext4 /dev/vda1; mkswap /dev/vda2; 
-mount /dev/vda1 /mnt; swapon /dev/swap_partition; 
+mount /dev/vda1 /mnt; swapon /dev/vda2; 
 pacstrap /mnt base linux linux-firmware dhcpcd vim grub xorg lightdm-gtk-greeter xfce4; 
 genfstab -U /mnt >> /mnt/etc/fstab; 
 arch-chroot /mnt; 
