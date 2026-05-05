@@ -1,0 +1,36 @@
+* {
+    text-shadow: none;
+    icon-shadow: none;
+}
+
+#XfcePanelWindow label, 
+#XfcePanelWindow box, 
+#XfcePanelWindow button {
+    color: #ffa028;
+}
+
+#clock-button {
+    color: #ffa028;
+}
+
+menu, .menu, .popup {
+    color: #ffa028;
+}
+
+menuitem label {
+    color: #ffa028;
+}
+
+menuitem image {
+    -gtk-icon-palette: success #ffa028, warning #ffa028, error #ffa028;
+    color: #ffa028;
+}
+
+menu, .menu {
+    background-color: #000000;
+}
+
+#XfcePanelWindow image {
+    -gtk-icon-palette: success #ffa028, warning #ffa028, error #ffa028;
+    color: #ffa028 !important;
+}
